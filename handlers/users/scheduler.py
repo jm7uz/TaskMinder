@@ -23,7 +23,7 @@ async def add_tasks(message: types.Message):
                 if state is not None:
                     await state.finish()
 
-                await bot.send_message(chat_id=user[0], text="Are you ready to report?", reply_markup=messageApproveState)
+                await bot.send_message(chat_id=user[0], text=f"{user[1]} Are you ready to report?", reply_markup=messageApproveState)
                 await asyncio.sleep(3)
                 
             await asyncio.sleep(30)
