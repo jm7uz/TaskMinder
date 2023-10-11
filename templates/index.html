@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Selection</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/styles.css') }}">
+</head>
+<body class="day">
+    <div class="container">
+        <h1>Select a User:</h1>
+        <form>
+            <select id="userSelect" name="selected_fullname">
+                {% for user in users %}
+                    <option value="{{ user.telegram_id }}">{{ user.fullname }}</option>
+                {% endfor %}
+            </select>
+        </form>
+        <h2>User Fullname: <span id="userName">--</span></h2>
+        <button id="modeButton">Switch to Night Mode</button>
+        <h3>User Messages</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Yesterday</th>
+                    <th>Today</th>
+                    <th>Tomorrow</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody id="messagesSelect">
+            </tbody>
+        </table>
+        
+    </div>
+
+    <script>
+        const body = document.body;
+        const modeButton = document.getElementById('modeButton');
+        let isNightMode = false;
+
+        modeButton.addEventListener('click', function() {
+            isNightMode = !isNightMode;
+
+            if (isNightMode) {
+                body.classList.remove('day');
+                body.classList.add('night');
+                modeButton.textContent = 'Switch to Day Mode';
+            } else {
+                body.classList.remove('night');
+                body.classList.add('day');
+                modeButton.textContent = 'Switch to Night Mode';
+            }
+        });
+
+        document.getElementById('userSelect').addEventListener('change', function() {
+            var selectedUserId = this.value;
+            document.getElementById('userName').textContent = this.options[this.selectedIndex].text;
+
+            // Clear the existing messages
+            var messagesSelect = document.getElementById('messagesSelect');
+            messagesSelect.innerHTML = '';
+
+            // Fetch and display messages for the selected user
+            fetch(`/user_messages/${selectedUserId}`)
+                .then(response => response.json())
+                .then(data => {
+                    data.messages.forEach(message => {
+                        var row = document.createElement('tr');
+
+                        var userCell = document.createElement('td');
+                        userCell.textContent = message.user_id;
+
+                        var yesterdayMsg = document.createElement('td');
+                        yesterdayMsg.textContent = message.yesterday;
+
+                        var todayMsg = document.createElement('td');
+                        todayMsg.textContent = message.today;
+
+                        var tomorrowMsg = document.createElement('td');
+                        tomorrowMsg.textContent = message.tomorrow;
+
+                        var createdAt = document.createElement('td');
+                        createdAt.textContent = message.created_at;
+
+                        row.appendChild(userCell);
+                        row.appendChild(yesterdayMsg);
+                        row.appendChild(todayMsg);
+                        row.appendChild(tomorrowMsg);
+                        row.appendChild(createdAt);
+                        messagesSelect.appendChild(row);
+                    });
+                });
+        });
+    </script>
+</body>
+</html>

@@ -8,9 +8,13 @@ from states.taskAdd import TaskDataAdd
 
 from datetime import datetime, timedelta
 
+# @dp.message_handler(commands=['add'])
 @dp.callback_query_handler(lambda c: c.data.startswith('approve_message_state'))
 async def add_tasks(call: types.CallbackQuery):
-    await call.message.delete()
+    try:
+        await call.message.delete()
+    except:
+        pass
     await call.message.answer("what did you do yesterday?: ")
     await TaskDataAdd.yesterday.set()
 
@@ -99,3 +103,8 @@ async def answer_message_data_verification_cancel(call: types.CallbackQuery, sta
     await call.message.delete()
     await call.message.answer("canceled.")
     await state.finish()
+
+@dp.callback_query_handler(lambda c: c.data.startswith('cancel_message_state'))
+async def answer_message_cancel(call: types.CallbackQuery, state: FSMContext):
+    await call.message.delete()
+    await call.message.answer("canceled✅")

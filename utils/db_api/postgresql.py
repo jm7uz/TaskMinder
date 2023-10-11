@@ -106,6 +106,11 @@ class Database:
         sql, parameters = self.format_args(sql, parameters=kwargs)
         return await self.execute(sql, *parameters, fetchrow=True)
     
+    async def select_messages(self, **kwargs):
+        sql = "SELECT * FROM Messages WHERE "
+        sql, parameters = self.format_args(sql, parameters=kwargs)
+        return await self.execute(sql, *parameters, fetchrow=True)
+    
     async def update_user_fullname(self, fullname, telegram_id):
         sql = "UPDATE Users SET fullname=$1 WHERE telegram_id=$2"
         return await self.execute(sql, fullname, telegram_id, execute=True)

@@ -1,0 +1,107 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.night table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.day th, td {
+    border: 1px solid #333;
+    padding: 10px;
+    text-align:left;
+}
+
+tbody {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.night tbody {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.day {
+    background-color: #fff;
+    color: #333;
+}
+
+.night {
+    background-color: #333;
+    color: #E9E8E8;
+}
+
+/* Adjust text color for table cells in night mode */
+.night th, .night td {
+    color: #E9E8E8;
+    border: 1px solid #949191;
+    padding: 10px;
+    text-align:left;
+}
+
+.night th {
+    background-color: #333;
+    border: 1px solid #949191;
+    padding: 10px;
+    color: #E9E8E8;
+}
+
+.night .container {
+    background: #111;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    border: 1px solid #777;
+}
+
+.night h1 {
+    text-align: left;
+    color: #E9E8E8;
+    margin: 0 0 10px;
+}
+
+.night h2 {
+    text-align: center;
+    color: #E9E8E8;
+    margin: 0 0 10px;
+}
+
+.night h3 {
+    text-align: center;
+    color: #E9E8E8;
+}
+
+.day h2, h3 {
+    text-align: center;
+    color: black;
+    margin: 0 0 10px;
+}
+
+.night tr {
+    color: #fff;
+}

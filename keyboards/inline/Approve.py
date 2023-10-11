@@ -23,5 +23,8 @@ messageApproveState = InlineKeyboardMarkup(
     [
         InlineKeyboardButton(text="✅ Yes, of course", callback_data="approve_message_state"),
     ],
+    [
+        InlineKeyboardButton(text="❌ I didn't work today", callback_data="cancel_message_state"),
+    ],
 
 ])
