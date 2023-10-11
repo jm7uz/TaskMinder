@@ -86,7 +86,7 @@ async def answer_message_data_verification_confirm(call: types.CallbackQuery, st
     
     user_data = await db.select_user(telegram_id = call.from_user.id)
 
-    await db.add_message(user_id=call.from_user.id, message=save_text)
+    await db.add_message(user_id=call.from_user.id, yesterday=yesterday, today=today, tomorrow=tomorrow)
     save_text += f"\n\n⏰ {time_str} 📆 {today_date_str}"
     await bot.send_message(chat_id=CHANNEL, text=f"👤{user_data[1]}\n\n{save_text}")
     save_text += "\ndata saved✅"

@@ -54,7 +54,9 @@ class Database:
         CREATE TABLE IF NOT EXISTS Messages (
             id SERIAL PRIMARY KEY,
             user_id bigint NOT NULL,
-            message TEXT,
+            yesterday varchar(5000),
+            today varchar(5000),
+            tomorrow varchar(5000),
             created_at DATE NOT NULL DEFAULT CURRENT_DATE
         )
         """
@@ -83,11 +85,11 @@ class Database:
         """
         return await self.execute(sql, telegram_id, fullname, fetchrow=True)
     
-    async def add_message(self, user_id, message):
+    async def add_message(self, user_id, yesterday, today, tomorrow):
         sql = """
-        INSERT INTO Messages(user_id, message) VALUES($1, $2)
+        INSERT INTO Messages(user_id, yesterday, today, tomorrow) VALUES($1, $2, $3, $4)
         """
-        return await self.execute(sql, user_id, message, fetchrow=True)
+        return await self.execute(sql, user_id, yesterday, today, tomorrow, fetchrow=True)
 
     async def add_time(self, time):
         sql = """
